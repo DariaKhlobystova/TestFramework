@@ -1,5 +1,6 @@
 package utils;
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -21,6 +22,8 @@ public class DriverFactory {
             case SAFARI:
                 driver = new SafariDriver();
                 break;
+            default:
+                Assertions.fail("INCORRECT BROWSER NAME " + browser);
         }
         return driver;
     }

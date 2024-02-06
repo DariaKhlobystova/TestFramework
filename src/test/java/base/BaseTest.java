@@ -1,5 +1,8 @@
 package base;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,17 +12,39 @@ import org.testng.annotations.Listeners;
 import pages.*;
 import utils.*;
 
+import java.io.File;
+import java.time.LocalTime;
+import java.util.Objects;
+
+import static utils.Config.*;
+
 @Listeners(Listener.class)
 public class BaseTest {
     public static WebDriver driver;
     private static Reader reader;
-    public static final Logger logger = LoggerFactory.getLogger(BaseTest.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(BaseTest.class);
     StartPage startPage;
     LoginPage loginPage;
     AddCardPage addCardPage;
     AssertionPage assertionPage;
     MyMistakesPage myMistakesPage;
 
+    static {
+        LOGGER.info("START TIME: " + LocalTime.now());
+        LOGGER.info("START clear reports dir: build/reports ... ");
+        File allureResults = new File("allure-results");
+        if (allureResults.isDirectory()) {
+            for(File item : Objects.requireNonNull(allureResults.listFiles())) {
+                item.delete();
+            }
+        }
+        if(CLEAR_REPORTS_DIR) {
+            File allureScreenshots = new File("build/reports/screenshots");
+            for(File item : Objects.requireNonNull(allureScreenshots.listFiles())) {
+                item.delete();
+            }
+        }
+    }
     @BeforeClass
     public void setUp() {
         driver = DriverFactory.getDriver(Browser.CHROME);
@@ -30,14 +55,6 @@ public class BaseTest {
         addCardPage = new AddCardPage(driver);
         assertionPage = new AssertionPage(driver);
         myMistakesPage = new MyMistakesPage(driver);
-        logger.info("test");
-    }
-
-    @AfterClass
-    public void tearDown() {
-        if(!Config.HOLD_BROWSER_OPEN){
-        driver.quit();
-        }
     }
 
     /**
@@ -118,6 +135,23 @@ public class BaseTest {
                         break;
                 }
             }
+        }
+    }
+
+
+    /** Clear reports from log and screenshots */
+    @AfterEach
+    public void clearCookiesAndLocalStorage() {
+        if(CLEAR_COOKIES) {
+            JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+            driver.manage().deleteAllCookies();
+            javascriptExecutor.executeScript("window.sessionStorage.clear()");
+        }
+    }
+    @AfterClass
+    public void tearDown() {
+        if(!HOLD_BROWSER_OPEN){
+            driver.quit();
         }
     }
 }

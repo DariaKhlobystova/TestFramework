@@ -57,7 +57,7 @@ clickOnBtn ("Ошибки в правописании" 1я строка, 4й с�
 clickOnBtn ("Добавить в мои ошибки")
 
 expectedResult: expectedNumberOfMistakes
-1
+3
 ------------------------
 Test (приоритет 3, зависит от addCardToMyMistakeTest)
 

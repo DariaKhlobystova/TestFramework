@@ -9,7 +9,6 @@ public class StartPage extends BasePage {
     @FindBy(xpath = "//*[@id='page']/div[1]/nav/div/div[1]/ul/li[1]/a")
     private WebElement loginBtn;
 
-
     public StartPage(WebDriver driver) {
         super(driver);
     }
@@ -17,6 +16,5 @@ public class StartPage extends BasePage {
     public void clickOnLoginBtn(){
         loginBtn.click();
     }
-
 
 }
