@@ -1,7 +1,6 @@
 package base;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -64,7 +63,7 @@ public class BaseTest {
         for (String line : reader.lines) {
             if (line.contains(page)) {
                 switch (page) {
-                    case "homePage", "mistakesPage":
+                    case "homePage":
 //                        driver.get(reader.findString(page));
                         driver.navigate().to(reader.findString(page));
                         break;
@@ -118,23 +117,23 @@ public class BaseTest {
     }
 
     /**
-     * @result is a key-parameter which value we expect to see like right value output
+     * @expectedResult is a key-parameter which value we expect to see like right value output
      */
-    public void expectedResult(String result) {
+    public void expectedResult(String expectedResult) {
         for (String line : reader.lines) {
-            if (line.contains(result)) {
-                switch (result) {
+            if (line.contains(expectedResult)) {
+                switch (expectedResult) {
                     case "expectedLinkHasText":
-                        assertionPage.checkMistakeLinkName(result);
+                        assertionPage.checkMistakeLinkName(expectedResult);
                         break;
                     case "expectedUserName":
-                        assertionPage.checkUserName(result);
+                        assertionPage.checkUserName(expectedResult);
                         break;
                     case "expectedNumberOfMistakes":
-                        assertionPage.checkAmountOfAddedMistakes(result);
+                        assertionPage.checkAmountOfAddedMistakes(expectedResult);
                         break;
-                    case "error":
-                        assertionPage.checkOfErrorMessageByIncorrectInputData(result);
+                    case "errorMessage":
+                        assertionPage.checkOfErrorMessageByIncorrectInputData(expectedResult);
                         break;
                 }
             }
@@ -151,6 +150,7 @@ public class BaseTest {
             javascriptExecutor.executeScript("window.sessionStorage.clear()");
         }
     }
+
     @AfterClass
     public void tearDown() {
         if(!HOLD_BROWSER_OPEN){

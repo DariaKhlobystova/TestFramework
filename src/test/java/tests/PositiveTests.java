@@ -19,7 +19,7 @@ public class PositiveTests extends BaseTest {
 
     @Test(dependsOnMethods = "loginTest")
     public void addCardToMyMistakeTest() {
-        openPage("mistakesPage");
+        openPage("homePage");
         clickOnBtn("card1");
         clickOnBtn("addCard");
 //        openPage("mistakesPage");

@@ -12,7 +12,7 @@ public class NegativeTests  extends BaseTest {
         input("negativeName");
         input("userPass");
         clickOnBtn("submit");
-        expectedResult("error");
+        expectedResult("errorMessage");
     }
     @Test
     public void loginTestWithIncorrectUserPassword() {
@@ -21,6 +21,6 @@ public class NegativeTests  extends BaseTest {
         input("userName");
         input("negativePass");
         clickOnBtn("submit");
-        expectedResult("error");
+        expectedResult("errorMessage");
     }
 }
