@@ -106,10 +106,10 @@ public class BaseTest {
         for (String line : reader.lines) {
             if (line.contains(inp)) {
                 switch (inp) {
-                    case "userName":
+                    case "userName", "negativeName":
                         loginPage.inputUserName(inp);
                         break;
-                    case "userPass":
+                    case "userPass", "negativePass":
                         loginPage.inputPassword(inp);
                         break;
                 }
@@ -132,6 +132,9 @@ public class BaseTest {
                         break;
                     case "expectedNumberOfMistakes":
                         assertionPage.checkAmountOfAddedMistakes(result);
+                        break;
+                    case "error":
+                        assertionPage.checkOfErrorMessageByIncorrectInputData(result);
                         break;
                 }
             }

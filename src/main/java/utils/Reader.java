@@ -22,7 +22,7 @@ public class Reader {
      */
     public ArrayList<String> readString() throws IIOException {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("src/test/resources/frameworkFromTxt.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("src/test/resources/testCasesForFW.txt"));
             String line = null;
             while ((line= br.readLine()) != null) {
                 lines.add(line);
