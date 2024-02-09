@@ -23,4 +23,11 @@ public class NegativeTests  extends BaseTest {
         clickOnBtn("submit");
         expectedResult("errorMessage");
     }
+
+    @Test
+    public void addCardToMyMistakeTestWithoutLogin(){
+        openPage("mistakePage");
+        clickOnBtn("addCard");
+        expectedResult("errorNotAuth");
+    }
 }

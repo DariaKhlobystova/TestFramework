@@ -18,14 +18,11 @@ public class PositiveTests extends BaseTest {
     }
 
     @Test(dependsOnMethods = "loginTest")
-    public void addCardToMyMistakeTest() {
-        openPage("homePage");
-        clickOnBtn("card1");
+    public void addCardToMyMistakeTestWithLogin() {
+        openPage("mistakePage");
         clickOnBtn("addCard");
-//        openPage("mistakesPage");
-//        clickOnBtn("card2");
-//        clickOnBtn("addCard");
-        clickOnBtn("myMistake");
-        expectedResult("expectedNumberOfMistakes");
+        expectedResult("expectedDeleteBtnIsPresented");
     }
+
+
 }

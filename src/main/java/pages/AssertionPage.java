@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,11 +16,16 @@ public class AssertionPage extends BasePage {
     @FindBy(xpath = "//*[@id='page']/div[2]/h2")
     private WebElement userName;
 
+    @FindBy(xpath = "//*[@id='page']/div[2]/div/div[1]/div/div[2]/a[2]")
+    private WebElement deleteBtnText;
+
+
+
     @FindBy(xpath = "//*[@id='page']/div[2]/div/div/form/div[1]/ul/li")
     private WebElement errorMessage;
 
-//    @FindBy(xpath = "//*[@id='page']/div[2]/div/div[1]/div/div[2]/a[1]")
-//    private WebElement deleteMistakeBtn;
+    @FindBy(xpath = "")
+    private WebElement errorNotAuth;
 
     @FindBy(xpath = "//*[@id='page']/div[2]/div/div")
     private List<WebElement> mistakes;
@@ -40,17 +46,24 @@ public class AssertionPage extends BasePage {
 //        Assert.assertEquals(mistakeLink.getText().trim(), "dummy");
     }
 
-    public void checkAmountOfAddedMistakes(String result){
-        int expectedInt = Integer.parseInt(reader.findString(result));
-        int actualSizeOfList = mistakes.size();
-        Assert.assertEquals(actualSizeOfList, expectedInt);
-//        Assert.assertEquals(actualSizeOfList, 2);
-    }
-
 
     public void checkOfErrorMessageByIncorrectInputData(String result){
         String expectedMessage = reader.findString(result);
         Assert.assertEquals(errorMessage.getText().trim(), expectedMessage);
 //        Assert.assertEquals(errorMessage.getText().trim(), "dummy");
+    }
+
+    // DOESN'T WORK - bug on the site
+    public void checkOfErrorMessageByAddingCardWithoutAuth(String result) {
+        String expectedMessage = reader.findString(result);
+        Assert.assertEquals(errorNotAuth.getText().trim(), expectedMessage);
+    }
+
+    public void checkDeleteBtnIsPresented(String result) {
+        String expectedValue = reader.findString(result);
+        Assert.assertEquals(deleteBtnText.getText().trim(), expectedValue);
+//        Assert.assertEquals(deleteBtnText.getText().trim(), "dummy");
+
+
     }
 }

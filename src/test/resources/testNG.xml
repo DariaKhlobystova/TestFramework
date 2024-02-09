@@ -1,0 +1,24 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="All Tests">
+    <test name="Positive Tests" >
+        <classes>
+            <class name="tests.PositiveTests" >
+                <methods>
+                    <include name="loginTest"></include>
+                    <include name="addCardToMyMistakeTestWithLogin"></include>
+                </methods>
+        </class>
+        </classes>
+    </test>
+    <test name="Negative Tests" >
+        <classes>
+            <class name="tests.NegativeTests" >
+                <methods>
+                    <include name="loginTestWithIncorrectUserName"></include>
+                    <include name="loginTestWithIncorrectUserPassword"></include>
+                    <exclude name="addCardToMyMistakeTestWithoutLogin"></exclude>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

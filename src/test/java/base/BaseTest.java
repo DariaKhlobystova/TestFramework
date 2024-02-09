@@ -24,7 +24,7 @@ public class BaseTest {
     public static final Logger LOGGER = LoggerFactory.getLogger(BaseTest.class);
     StartPage startPage;
     LoginPage loginPage;
-    AddCardPage addCardPage;
+    MistakeCardPage mistakeCardPage;
     AssertionPage assertionPage;
     MyMistakesPage myMistakesPage;
 
@@ -51,7 +51,7 @@ public class BaseTest {
         reader = new Reader();
         startPage = new StartPage(driver);
         loginPage = new LoginPage(driver);
-        addCardPage = new AddCardPage(driver);
+        mistakeCardPage = new MistakeCardPage(driver);
         assertionPage = new AssertionPage(driver);
         myMistakesPage = new MyMistakesPage(driver);
     }
@@ -63,7 +63,7 @@ public class BaseTest {
         for (String line : reader.lines) {
             if (line.contains(page)) {
                 switch (page) {
-                    case "homePage":
+                    case "homePage", "mistakePage":
 //                        driver.get(reader.findString(page));
                         driver.navigate().to(reader.findString(page));
                         break;
@@ -83,14 +83,8 @@ public class BaseTest {
             case "submit":
                 loginPage.clickOnSubmitBtn();
                 break;
-            case "card1":
-                addCardPage.clickOnCardBtn(1);
-                break;
-//            case "card2":
-//                addCardPage.clickOnCardBtn(2);
-//                break;
             case "addCard":
-                addCardPage.clickOnAddCardBtn();
+                mistakeCardPage.clickOnAddCardBtn();
                 break;
             case "myMistake":
                 myMistakesPage.clickOnMyMistakeBtn();
@@ -129,12 +123,14 @@ public class BaseTest {
                     case "expectedUserName":
                         assertionPage.checkUserName(expectedResult);
                         break;
-                    case "expectedNumberOfMistakes":
-                        assertionPage.checkAmountOfAddedMistakes(expectedResult);
+                    case "expectedDeleteBtnIsPresented":
+                        assertionPage.checkDeleteBtnIsPresented(expectedResult);
                         break;
                     case "errorMessage":
                         assertionPage.checkOfErrorMessageByIncorrectInputData(expectedResult);
                         break;
+                    case "errorNotAuth":
+                        assertionPage.checkOfErrorMessageByAddingCardWithoutAuth(expectedResult);
                 }
             }
         }

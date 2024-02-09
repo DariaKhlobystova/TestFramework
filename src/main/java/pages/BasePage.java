@@ -8,7 +8,7 @@ import utils.Reader;
 import java.time.Duration;
 
 public class BasePage {
-    private WebDriver driver;
+    WebDriver driver;
     protected Reader reader;
     WebDriverWait wait;
 
@@ -19,8 +19,8 @@ public class BasePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         PageFactory.initElements(driver, this);
     }
-
 //    public void switchToPage(){
+//        driver.navigate().refresh();
 //        driver.switchTo().defaultContent();
 //    }
 }
