@@ -24,5 +24,11 @@ public class PositiveTests extends BaseTest {
         expectedResult("expectedDeleteBtnIsPresented");
     }
 
+    @Test(dependsOnMethods = "loginTest")
+    public void logOutTest(){
+        openPage("homePage");
+        clickOnBtn("logOut");
+        expectedResult("expectedLogoutText");
+    }
 
 }

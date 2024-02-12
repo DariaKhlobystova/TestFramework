@@ -19,7 +19,8 @@ public class AssertionPage extends BasePage {
     @FindBy(xpath = "//*[@id='page']/div[2]/div/div[1]/div/div[2]/a[2]")
     private WebElement deleteBtnText;
 
-
+    @FindBy(xpath = "//*[@id='page']/div[2]/div/div/p")
+    private WebElement logoutText;
 
     @FindBy(xpath = "//*[@id='page']/div[2]/div/div/form/div[1]/ul/li")
     private WebElement errorMessage;
@@ -63,7 +64,10 @@ public class AssertionPage extends BasePage {
         String expectedValue = reader.findString(result);
         Assert.assertEquals(deleteBtnText.getText().trim(), expectedValue);
 //        Assert.assertEquals(deleteBtnText.getText().trim(), "dummy");
-
-
+    }
+    public void checkLogoutText(String result) {
+        String expectedValue = reader.findString(result);
+        Assert.assertEquals(logoutText.getText().trim(), expectedValue);
+//        Assert.assertEquals(logoutText.getText().trim(), "dummy");
     }
 }

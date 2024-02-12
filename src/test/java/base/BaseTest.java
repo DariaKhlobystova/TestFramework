@@ -9,7 +9,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import pages.*;
-import utils.*;
+import utils.Browser;
+import utils.DriverFactory;
+import utils.Listener;
+import utils.Reader;
 
 import java.io.File;
 import java.time.LocalTime;
@@ -33,17 +36,18 @@ public class BaseTest {
         LOGGER.info("START clear reports dir: build/reports ... ");
         File allureResults = new File("allure-results");
         if (allureResults.isDirectory()) {
-            for(File item : Objects.requireNonNull(allureResults.listFiles())) {
+            for (File item : Objects.requireNonNull(allureResults.listFiles())) {
                 item.delete();
             }
         }
-        if(CLEAR_REPORTS_DIR) {
+        if (CLEAR_REPORTS_DIR) {
             File allureScreenshots = new File("build/reports/screenshots");
-            for(File item : Objects.requireNonNull(allureScreenshots.listFiles())) {
+            for (File item : Objects.requireNonNull(allureScreenshots.listFiles())) {
                 item.delete();
             }
         }
     }
+
     @BeforeClass
     public void setUp() {
         driver = DriverFactory.getDriver(Browser.CHROME);
@@ -79,6 +83,9 @@ public class BaseTest {
         switch (btn) {
             case "logIn":
                 startPage.clickOnLoginBtn();
+                break;
+            case "logOut":
+                startPage.clickOnLogOutBtn();
                 break;
             case "submit":
                 loginPage.clickOnSubmitBtn();
@@ -126,6 +133,9 @@ public class BaseTest {
                     case "expectedDeleteBtnIsPresented":
                         assertionPage.checkDeleteBtnIsPresented(expectedResult);
                         break;
+                    case "expectedLogoutText":
+                        assertionPage.checkLogoutText(expectedResult);
+                        break;
                     case "errorMessage":
                         assertionPage.checkOfErrorMessageByIncorrectInputData(expectedResult);
                         break;
@@ -137,10 +147,12 @@ public class BaseTest {
     }
 
 
-    /** Clear reports from log and screenshots */
+    /**
+     * Clear reports from log and screenshots
+     */
     @AfterEach
     public void clearCookiesAndLocalStorage() {
-        if(CLEAR_COOKIES) {
+        if (CLEAR_COOKIES) {
             JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             driver.manage().deleteAllCookies();
             javascriptExecutor.executeScript("window.sessionStorage.clear()");
@@ -149,7 +161,7 @@ public class BaseTest {
 
     @AfterClass
     public void tearDown() {
-        if(!HOLD_BROWSER_OPEN){
+        if (!HOLD_BROWSER_OPEN) {
             driver.quit();
         }
     }

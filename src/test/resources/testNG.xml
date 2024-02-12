@@ -6,6 +6,7 @@
                 <methods>
                     <include name="loginTest"></include>
                     <include name="addCardToMyMistakeTestWithLogin"></include>
+                    <include name="logOutTest"></include>
                 </methods>
         </class>
         </classes>
