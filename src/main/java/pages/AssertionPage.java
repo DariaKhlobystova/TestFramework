@@ -1,12 +1,9 @@
 package pages;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-
-import java.util.List;
 
 public class AssertionPage extends BasePage {
 
@@ -28,9 +25,6 @@ public class AssertionPage extends BasePage {
     @FindBy(xpath = "")
     private WebElement errorNotAuth;
 
-    @FindBy(xpath = "//*[@id='page']/div[2]/div/div")
-    private List<WebElement> mistakes;
-
     public AssertionPage(WebDriver driver) {
         super(driver);
     }
@@ -40,26 +34,16 @@ public class AssertionPage extends BasePage {
         Assert.assertEquals(userName.getText().trim(), expectedValue);
 //        Assert.assertEquals(userName.getText().trim(), "dummy");
     }
-
     public void checkMistakeLinkName(String result){
         String expectedValue = reader.findString(result);
         Assert.assertEquals(mistakeLink.getText().trim(), expectedValue);
 //        Assert.assertEquals(mistakeLink.getText().trim(), "dummy");
     }
-
-
     public void checkOfErrorMessageByIncorrectInputData(String result){
         String expectedMessage = reader.findString(result);
         Assert.assertEquals(errorMessage.getText().trim(), expectedMessage);
 //        Assert.assertEquals(errorMessage.getText().trim(), "dummy");
     }
-
-    // DOESN'T WORK - bug on the site
-    public void checkOfErrorMessageByAddingCardWithoutAuth(String result) {
-        String expectedMessage = reader.findString(result);
-        Assert.assertEquals(errorNotAuth.getText().trim(), expectedMessage);
-    }
-
     public void checkDeleteBtnIsPresented(String result) {
         String expectedValue = reader.findString(result);
         Assert.assertEquals(deleteBtnText.getText().trim(), expectedValue);
@@ -69,5 +53,10 @@ public class AssertionPage extends BasePage {
         String expectedValue = reader.findString(result);
         Assert.assertEquals(logoutText.getText().trim(), expectedValue);
 //        Assert.assertEquals(logoutText.getText().trim(), "dummy");
+    }
+    // DOESN'T WORK - bug on the site
+    public void checkOfErrorMessageByAddingCardWithoutAuth(String result) {
+        String expectedMessage = reader.findString(result);
+        Assert.assertEquals(errorNotAuth.getText().trim(), expectedMessage);
     }
 }
